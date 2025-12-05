@@ -9,51 +9,42 @@
 <body>
 
     <header class="navbar">
-        <div class="flip-switch-container">
-              <div class="flip-switch">
-                <input type="radio" id="switch-opt-1" name="flip-switch"  />
-                <input type="radio" id="switch-opt-2" name="flip-switch" checked=""/>
-            
-                <a href="index.html" for="switch-opt-1" class="switch-button">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                    fill="currentColor"
-                  >
-                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"></path>
-                  </svg>
-                  <span>Over Mij</span>
-                </a>
-            
-                <a href="portfolio.html" for="switch-opt-2" class="switch-button current-page">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-                    ></path>
-                  </svg>
-                  <span>Projecten</span>
-                </a>
-            
-                <div class="switch-card">
-                  <div class="card-face card-front"></div>
-                  <div class="card-face card-back"></div>
+        <div class="container nav-content">
+            <span class="logo">Mijn Portfolio</span>
+
+            <div class="flip-switch-container">
+                <div class="flip-switch">
+                    <input type="radio" id="switch-opt-1" name="flip-switch" />
+                    <input type="radio" id="switch-opt-2" name="flip-switch" checked="" />
+
+                    <a href="index.html" for="switch-opt-1" class="switch-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"></path>
+                        </svg>
+                        <span>Over Mij</span>
+                    </a>
+
+                    <a href="portfolio.html" for="switch-opt-2" class="switch-button current-page">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                        </svg>
+                        <span>Projecten</span>
+                    </a>
+
+                    <div class="switch-card">
+                        <div class="card-face card-front"></div>
+                        <div class="card-face card-back"></div>
+                    </div>
                 </div>
-              </div>
+            </div>
+
         </div>
     </header>
 
     <main class="container">
         <section id="projects">
             <h1>Mijn Projecten Overzicht</h1>
-            <p>Een selectie van de meest recente en trotse projecten die ik heb afgerond. Klik op een kaart voor meer details (of voeg een link toe).</p>
+            <p>Een selectie van de meest recente en trotse projecten die ik heb afgerond. Klik op een kaart voor meer details.</p>
 
             <div class="projects-grid">
 
@@ -64,7 +55,6 @@
                         <span class="tag">React</span>
                         <span class="tag">Node.js</span>
                         <span class="tag">MongoDB</span>
-                        <span class="tag">Stripe</span>
                     </div>
                     <a href="#" style="margin-top: 15px;">Bekijk Code &rarr;</a>
                 </article>
@@ -74,7 +64,6 @@
                     <p>Een snelle, statische websitegenerator geschreven in Python die Markdown-bestanden omzet in HTML voor optimale SEO en prestaties.</p>
                     <div class="tags">
                         <span class="tag">Python</span>
-                        <span class="tag">Markdown</span>
                         <span class="tag">Static Site</span>
                     </div>
                     <a href="#" style="margin-top: 15px;">Live Demo &rarr;</a>
@@ -85,7 +74,6 @@
                     <p>Een mobiele takenlijst-applicatie ontwikkeld met Vue.js en Capacitor voor een native mobiele ervaring op iOS en Android.</p>
                     <div class="tags">
                         <span class="tag">Vue.js</span>
-                        <span class="tag">Capacitor</span>
                         <span class="tag">PWA</span>
                     </div>
                     <a href="#" style="margin-top: 15px;">Lees Meer &rarr;</a>
@@ -97,17 +85,16 @@
                     <div class="tags">
                         <span class="tag">AWS Lambda</span>
                         <span class="tag">Serverless</span>
-                        <span class="tag">Node.js</span>
                     </div>
                     <a href="#" style="margin-top: 15px;">GitHub Repo &rarr;</a>
                 </article>
-                
-                </div>
+
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Rafi el Idrissi. Alle rechten voorbehouden.</p>
+        <p>&copy; 2025 [Jouw Naam]. Alle rechten voorbehouden.</p>
     </footer>
 
     <script src="js/main.js"></script>
