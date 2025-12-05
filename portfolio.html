@@ -343,6 +343,192 @@
             color: #4dd0e1;
         }
 
+        .view-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: rgba(0, 188, 212, 0.2);
+            color: var(--color-primary);
+            border: 1px solid var(--color-primary);
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-button:hover {
+            background-color: rgba(0, 188, 212, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--color-surface);
+            border-radius: 12px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.7);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: var(--color-primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-image-container {
+            position: relative;
+            background-color: #0a0a0a;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .modal-slideshow-image {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            display: none;
+            background-color: #0a0a0a;
+        }
+
+        .modal-slideshow-image.active {
+            display: block;
+        }
+
+        .fullscreen-button {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+
+        .fullscreen-button:hover {
+            background: var(--color-primary);
+            color: var(--color-background);
+        }
+
+        .fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .fullscreen-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+
+        .fullscreen-image {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+        }
+
+        .fullscreen-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .fullscreen-close:hover {
+            background: var(--color-primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-body h3 {
+            color: var(--color-primary);
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .modal-body p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
         footer {
             text-align: center;
             padding: 20px 0;
@@ -404,7 +590,7 @@
             <div class="projects-grid">
 
                 <article class="project-card">
-                    <img src="/Schermafbeelding 2025-12-05 142750.png" alt="Interactieve Kaart" class="single-image">
+                    <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Interactieve+Kaart" alt="Interactieve Kaart" class="single-image">
                     <div class="project-content">
                         <h3>Interactieve Kaart voor Travel Counsellors</h3>
                         <p>Een dynamische, interactieve wereldkaart ontwikkeld voor Travel Counsellors. De applicatie visualiseert reisbestemmingen en informatie op een gebruiksvriendelijke manier. Nu voorzien van testdata vanwege privacyregels.</p>
@@ -420,17 +606,18 @@
                 <article class="project-card">
                     <div class="slideshow-container">
                         <button class="slideshow-arrow prev" onclick="changeSlide(this, -1)">‹</button>
-                        <img src="/Schermafbeelding 2025-12-05 143034.png" class="slideshow-image active" alt="DrisisShop Homepage">
-                        <img src="/Schermafbeelding 2025-12-05 143137.png" class="slideshow-image" alt="Interactieve Chatbot">
-                        <!--<img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Windows+Game" class="slideshow-image" alt="Windows Game">-->
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=DrisisShop+Home" class="slideshow-image active" alt="DrisisShop Homepage">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=AI+Chatbot" class="slideshow-image" alt="Interactieve Chatbot">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Windows+Game" class="slideshow-image" alt="Windows Game">
                         <button class="slideshow-arrow next" onclick="changeSlide(this, 1)">›</button>
                         <div class="slideshow-controls">
                             <span class="slideshow-dot active" onclick="goToSlide(this, 0)"></span>
                             <span class="slideshow-dot" onclick="goToSlide(this, 1)"></span>
+                            <span class="slideshow-dot" onclick="goToSlide(this, 2)"></span>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>DrisisShop - Persoonlijke Test E-commerce Website</h3>
+                        <h3>DrisisShop - Persoonlijke E-commerce Website</h3>
                         <p>Een volledig functionele webshop met een interactieve AI-chatbot die vragen over de website beantwoordt. Bevat eigen gemaakte producten zoals een Windows game en een AI-gegenereerd kinderboek. De chatbot biedt realtime support aan bezoekers.</p>
                         <div class="tags">
                             <span class="tag">E-commerce</span>
@@ -442,7 +629,7 @@
                 </article>
 
                 <article class="project-card">
-                    <img src="/Schermafbeelding 2025-12-05 143432.png" alt="Rad van Eten" class="single-image">
+                    <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Rad+van+Eten" alt="Rad van Eten" class="single-image">
                     <div class="project-content">
                         <h3>Rad van Eten</h3>
                         <p>Een interactieve web applicatie met een draaibaar rad om te beslissen wat je voor lunch wilt eten. Gebruikers kunnen eenvoudig eigen items toevoegen en verwijderen. Perfect voor besluitloze momenten!</p>
@@ -457,8 +644,8 @@
                 <article class="project-card">
                     <div class="slideshow-container">
                         <button class="slideshow-arrow prev" onclick="changeSlide(this, -1)">‹</button>
-                        <img src="/Schermafbeelding 2025-12-05 143725.png" class="slideshow-image active" alt="Budget Dashboard">
-                        <img src="/Schermafbeelding 2025-12-05 143751.png" class="slideshow-image" alt="Maandelijkse Kosten">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Budget+Dashboard" class="slideshow-image active" alt="Budget Dashboard">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Kosten+Overzicht" class="slideshow-image" alt="Maandelijkse Kosten">
                         <button class="slideshow-arrow next" onclick="changeSlide(this, 1)">›</button>
                         <div class="slideshow-controls">
                             <span class="slideshow-dot active" onclick="goToSlide(this, 0)"></span>
@@ -477,7 +664,7 @@
                 </article>
 
                 <article class="project-card">
-                    <img src="/Schermafbeelding 2025-12-05 144002.png" alt="Werkuren Logger" class="single-image">
+                    <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Werkuren+Logger" alt="Werkuren Logger" class="single-image">
                     <div class="project-content">
                         <h3>Werkuren Logger</h3>
                         <p>Een complete tijdregistratie applicatie met persoonlijke accounts. Gebruikers kunnen registreren met gebruikersnaam en wachtwoord, en hun werkuren bijhouden per maand. Data wordt veilig opgeslagen in een MongoDB database.</p>
@@ -490,7 +677,7 @@
                 </article>
 
                 <article class="project-card">
-                    <img src="/Schermafbeelding 2025-12-05 144531.png" alt="Python Racing Game" class="single-image">
+                    <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=3D+Racing+Game" alt="Python Racing Game" class="single-image">
                     <div class="project-content">
                         <h3>Python 3D Multiplayer Racing Game</h3>
                         <p>Een volledig functionele 3D racegame gebouwd met de Ursina engine en WebSockets voor multiplayer functionaliteit. Bevat een pit lane om banden te wisselen tussen soft, medium en hard compounds. Ondersteunt 1-6 spelers, waarbij je altijd tegen minimaal één bot racet.</p>
@@ -506,11 +693,11 @@
                 <article class="project-card">
                     <div class="slideshow-container">
                         <button class="slideshow-arrow prev" onclick="changeSlide(this, -1)">‹</button>
-                        <img src="/Schermafbeelding 2025-12-05 145340.png" class="slideshow-image active" alt="TimeTell Hoofdscherm">
-                        <img src="/Schermafbeelding 2025-12-05 145433.png" class="slideshow-image" alt="TimeTell Timer">
-                        <img src="/Schermafbeelding 2025-12-05 145504.png" class="slideshow-image" alt="TimeTell Statistieken">
-                        <img src="/Schermafbeelding 2025-12-05 145519.png" class="slideshow-image" alt="TimeTell Instellingen">
-                        <img src="/Schermafbeelding 2025-12-05 145701.png" class="slideshow-image" alt="TimeTell Overzicht">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=TimeTell+Main" class="slideshow-image active" alt="TimeTell Hoofdscherm">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=TimeTell+Timer" class="slideshow-image" alt="TimeTell Timer">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=TimeTell+Stats" class="slideshow-image" alt="TimeTell Statistieken">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=TimeTell+Settings" class="slideshow-image" alt="TimeTell Instellingen">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=TimeTell+Overview" class="slideshow-image" alt="TimeTell Overzicht">
                         <button class="slideshow-arrow next" onclick="changeSlide(this, 1)">›</button>
                         <div class="slideshow-controls">
                             <span class="slideshow-dot active" onclick="goToSlide(this, 0)"></span>
@@ -534,9 +721,9 @@
                 <article class="project-card">
                     <div class="slideshow-container">
                         <button class="slideshow-arrow prev" onclick="changeSlide(this, -1)">‹</button>
-                        <img src="/Schermafbeelding 2025-12-05 151603.png" class="slideshow-image active" alt="Monopoly Speelbord">
-                        <img src="/Schermafbeelding 2025-12-05 151648.png" class="slideshow-image" alt="Monopoly Gameplay">
-                        <img src="/Schermafbeelding 2025-12-05 151807.png" class="slideshow-image" alt="Monopoly Eigenschappen">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Monopoly+Board" class="slideshow-image active" alt="Monopoly Speelbord">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Monopoly+Gameplay" class="slideshow-image" alt="Monopoly Gameplay">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Monopoly+Properties" class="slideshow-image" alt="Monopoly Eigenschappen">
                         <button class="slideshow-arrow next" onclick="changeSlide(this, 1)">›</button>
                         <div class="slideshow-controls">
                             <span class="slideshow-dot active" onclick="goToSlide(this, 0)"></span>
@@ -574,11 +761,236 @@
         </section>
     </main>
 
+    <!-- Modal voor grotere view -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-image-container" id="modalImageContainer">
+                <!-- Afbeeldingen worden hier dynamisch toegevoegd -->
+                <button class="fullscreen-button" onclick="openFullscreen()">🔍 Volledig Scherm</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Projectinformatie wordt hier dynamisch toegevoegd -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Fullscreen overlay -->
+    <div class="fullscreen-overlay" id="fullscreenOverlay" onclick="closeFullscreen()">
+        <button class="fullscreen-close">✕</button>
+        <img class="fullscreen-image" id="fullscreenImage" src="" alt="Fullscreen view">
+    </div>
+
     <footer>
         <p>&copy; 2025 Rafi el Idrissi. Alle rechten voorbehouden.</p>
     </footer>
 
     <script>
+        const projects = [
+            {
+                title: "Interactieve Kaart voor Travel Counsellors",
+                description: "Een dynamische, interactieve wereldkaart ontwikkeld voor Travel Counsellors. De applicatie visualiseert reisbestemmingen en informatie op een gebruiksvriendelijke manier. Nu voorzien van testdata vanwege privacyregels.",
+                images: ["/Schermafbeelding 2025-12-05 142750.png"],
+                tags: ["JavaScript", "Mapping API", "Interactive UI"],
+                link: "https://xavitje.github.io/SchoolInteractieveKaart/"
+            },
+            {
+                title: "DrisisShop - Persoonlijke Test E-commerce Website",
+                description: "Een volledig functionele webshop met een interactieve AI-chatbot die vragen over de website beantwoordt. Bevat eigen gemaakte producten zoals een Windows game en een AI-gegenereerd kinderboek. De chatbot biedt realtime support aan bezoekers.",
+                images: ["/Schermafbeelding 2025-12-05 143034.png", "/Schermafbeelding 2025-12-05 143137.png"],
+                tags: ["E-commerce", "AI Chatbot", "Full-Stack"],
+                link: "https://drissishop.pages.dev/"
+            },
+            {
+                title: "Rad van Eten",
+                description: "Een interactieve web applicatie met een draaibaar rad om te beslissen wat je voor lunch wilt eten. Gebruikers kunnen eenvoudig eigen items toevoegen en verwijderen. Perfect voor besluitloze momenten!",
+                images: ["/Schermafbeelding 2025-12-05 143432.png"],
+                tags: ["JavaScript", "Canvas API", "Interactive"]
+            },
+            {
+                title: "Budget & Salaris Tracker",
+                description: "Een Azure-gehoste webapplicatie voor het beheren van maandelijkse kosten en salaris. Gebruikers kunnen inloggen met hun Google-account en hun financiën per maand inzien en verdelen. Bevat overzichtelijke grafieken en statistieken.",
+                images: ["/Schermafbeelding 2025-12-05 143725.png", "/Schermafbeelding 2025-12-05 143751.png"],
+                tags: ["Azure", "Google OAuth", "Data Visualization"]
+            },
+            {
+                title: "Werkuren Logger",
+                description: "Een complete tijdregistratie applicatie met persoonlijke accounts. Gebruikers kunnen registreren met gebruikersnaam en wachtwoord, en hun werkuren bijhouden per maand. Data wordt veilig opgeslagen in een MongoDB database.",
+                images: ["/Schermafbeelding 2025-12-05 144002.png"],
+                tags: ["MongoDB", "Node.js", "Authentication"]
+            },
+            {
+                title: "Python 3D Multiplayer Racing Game",
+                description: "Een volledig functionele 3D racegame gebouwd met de Ursina engine en WebSockets voor multiplayer functionaliteit. Bevat een pit lane om banden te wisselen tussen soft, medium en hard compounds. Ondersteunt 1-6 spelers, waarbij je altijd tegen minimaal één bot racet.",
+                images: ["/Schermafbeelding 2025-12-05 144531.png"],
+                tags: ["Python", "Ursina", "WebSockets", "3D Graphics"]
+            },
+            {
+                title: "TimeTell - Hackathon Project HR 2025",
+                description: "Winnend project van de Hogeschool Rotterdam hackathon voor eerstejaars studenten. Een productiviteitsapp gebouwd met Python en PyQt6 voor tijdmanagement en taakplanning. Bevat timers, statistieken en een overzichtelijk dashboard.",
+                images: [
+                    "/Schermafbeelding 2025-12-05 145340.png",
+                    "/Schermafbeelding 2025-12-05 145433.png",
+                    "/Schermafbeelding 2025-12-05 145504.png",
+                    "/Schermafbeelding 2025-12-05 145519.png",
+                    "/Schermafbeelding 2025-12-05 145701.png"
+                ],
+                tags: ["Python", "PyQt6", "Hackathon Winner"]
+            },
+            {
+                title: "Python Monopoly Game",
+                description: "Een volledig werkende digitale versie van Monopoly gebouwd met Python en Pygame. Ondersteunt tot 6 spelers met complete gameplay: dobbelsteengeluiden, 'ka-ching' geluiden bij aankopen, gevangenis mechaniek, kaarten kopen, start passeren, huur betalen en winnaar bepaling.",
+                images: [
+                    "/Schermafbeelding 2025-12-05 151603.png",
+                    "/Schermafbeelding 2025-12-05 151648.png",
+                    "/Schermafbeelding 2025-12-05 151807.png"
+                ],
+                tags: ["Python", "Pygame", "Game Development", "Audio"]
+            },
+            {
+                title: "iOS AR Zombie Shooter",
+                description: "Een augmented reality game voor iOS die de echte wereld combineert met gameplay. Zombies komen op je af in AR en moeten worden neergeschoten. Bevat een wapensysteem met upgrades en nieuwe wapens die gekocht kunnen worden. Momenteel in ontwikkeling.",
+                images: ["https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=AR+Zombie+Shooter"],
+                tags: ["iOS", "ARKit", "Swift", "In Development"]
+            }
+        ];
+
+        let currentModalIndex = 0;
+        let currentModalImageIndex = 0;
+
+        function openModal(projectIndex) {
+            currentModalIndex = projectIndex;
+            currentModalImageIndex = 0;
+            const project = projects[projectIndex];
+            
+            const modalImageContainer = document.getElementById('modalImageContainer');
+            const modalBody = document.getElementById('modalBody');
+            
+            // Clear previous content
+            const existingImages = modalImageContainer.querySelectorAll('.modal-slideshow-image, .slideshow-arrow, .slideshow-controls');
+            existingImages.forEach(el => el.remove());
+            
+            // Add images
+            if (project.images.length > 1) {
+                // Multiple images - create slideshow
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'slideshow-arrow prev';
+                prevBtn.innerHTML = '‹';
+                prevBtn.onclick = () => changeModalSlide(-1);
+                
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'slideshow-arrow next';
+                nextBtn.innerHTML = '›';
+                nextBtn.onclick = () => changeModalSlide(1);
+                
+                project.images.forEach((src, index) => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.className = 'modal-slideshow-image' + (index === 0 ? ' active' : '');
+                    img.alt = project.title;
+                    modalImageContainer.insertBefore(img, modalImageContainer.firstChild);
+                });
+                
+                const controls = document.createElement('div');
+                controls.className = 'slideshow-controls';
+                project.images.forEach((_, index) => {
+                    const dot = document.createElement('span');
+                    dot.className = 'slideshow-dot' + (index === 0 ? ' active' : '');
+                    dot.onclick = () => goToModalSlide(index);
+                    controls.appendChild(dot);
+                });
+                
+                modalImageContainer.appendChild(prevBtn);
+                modalImageContainer.appendChild(nextBtn);
+                modalImageContainer.appendChild(controls);
+            } else {
+                // Single image
+                const img = document.createElement('img');
+                img.src = project.images[0];
+                img.className = 'modal-slideshow-image active';
+                img.alt = project.title;
+                modalImageContainer.insertBefore(img, modalImageContainer.firstChild);
+            }
+            
+            // Add project info
+            modalBody.innerHTML = `
+                <h3>${project.title}</h3>
+                <p>${project.description}</p>
+                <div class="tags">
+                    ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+                ${project.link ? `<a href="${project.link}" target="_blank" class="project-link" style="display: inline-block; margin-top: 15px;">Bezoek Project →</a>` : ''}
+            `;
+            
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeModalSlide(direction) {
+            const images = document.querySelectorAll('#modalImageContainer .modal-slideshow-image');
+            const dots = document.querySelectorAll('#modalImageContainer .slideshow-dot');
+            
+            if (images.length <= 1) return;
+            
+            images[currentModalImageIndex].classList.remove('active');
+            dots[currentModalImageIndex].classList.remove('active');
+            
+            currentModalImageIndex += direction;
+            if (currentModalImageIndex >= images.length) currentModalImageIndex = 0;
+            if (currentModalImageIndex < 0) currentModalImageIndex = images.length - 1;
+            
+            images[currentModalImageIndex].classList.add('active');
+            dots[currentModalImageIndex].classList.add('active');
+        }
+
+        function goToModalSlide(index) {
+            const images = document.querySelectorAll('#modalImageContainer .modal-slideshow-image');
+            const dots = document.querySelectorAll('#modalImageContainer .slideshow-dot');
+            
+            images[currentModalImageIndex].classList.remove('active');
+            dots[currentModalImageIndex].classList.remove('active');
+            
+            currentModalImageIndex = index;
+            
+            images[currentModalImageIndex].classList.add('active');
+            dots[currentModalImageIndex].classList.add('active');
+        }
+
+        function openFullscreen() {
+            const activeImage = document.querySelector('#modalImageContainer .modal-slideshow-image.active');
+            if (activeImage) {
+                document.getElementById('fullscreenImage').src = activeImage.src;
+                document.getElementById('fullscreenOverlay').classList.add('active');
+            }
+        }
+
+        function closeFullscreen() {
+            document.getElementById('fullscreenOverlay').classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('modalOverlay').addEventListener('click', (e) => {
+            if (e.target.id === 'modalOverlay') {
+                closeModal();
+            }
+        });
+
+        // Close fullscreen with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (document.getElementById('fullscreenOverlay').classList.contains('active')) {
+                    closeFullscreen();
+                } else if (document.getElementById('modalOverlay').classList.contains('active')) {
+                    closeModal();
+                }
+            }
+        });
+
         function changeSlide(button, direction) {
             const container = button.closest('.slideshow-container');
             const images = container.querySelectorAll('.slideshow-image');
