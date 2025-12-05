@@ -26,7 +26,7 @@ body {
     color: var(--color-text-light);
     line-height: 1.6;
     scroll-behavior: smooth;
-    padding-top: 60px; /* Ruimte voor vaste navigatie */
+    padding-top: 60px;
 }
 
 a {
@@ -36,7 +36,7 @@ a {
 }
 
 a:hover {
-    color: #4dd0e1; /* Lichtere tint bij hover */
+    color: #4dd0e1;
 }
 
 h1, h2, h3 {
@@ -75,6 +75,52 @@ p {
     align-items: center;
 }
 
+.flip-switch .switch-button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  z-index: 2;
+  color: var(--inactive-text-color);
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  text-decoration: none;
+}
+.flip-switch .current-page {
+    color: var(--text-color) !important; 
+    text-shadow: 0 0 8px rgba(100, 255, 218, 0.5);
+}
+
+
+.flip-switch #switch-opt-1:checked ~ [for="switch-opt-1"]::after,
+.flip-switch #switch-opt-2:checked ~ [for="switch-opt-2"]::after {
+}
+
+
+.flip-switch #switch-opt-2:checked ~ .switch-card {
+    transform: translateX(100%) rotateY(180deg) scale(1); 
+    animation: none;
+}
+
+.flip-switch #switch-opt-1:checked ~ .switch-card {
+    transform: translateX(0%) rotateY(0deg) scale(1);
+    animation: none;
+}
+
+.flip-switch #switch-opt-2:focus ~ .switch-card,
+.flip-switch #switch-opt-2:checked:not(:focus) ~ .switch-card {
+     animation: flipRight 0.6s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.flip-switch #switch-opt-1:focus ~ .switch-card,
+.flip-switch #switch-opt-1:checked:not(:focus) ~ .switch-card {
+     animation: flipLeft 0.6s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
 .logo {
     font-size: 1.5em;
     font-weight: 600;
@@ -96,7 +142,6 @@ p {
     position: relative;
 }
 
-/* Underline effect bij hover */
 .nav-links a::after {
     content: '';
     position: absolute;
@@ -120,7 +165,7 @@ section {
 
 /* Hero Sectie (Index.html) */
 .hero-section {
-    min-height: calc(100vh - 60px); /* Volledige hoogte minus navigatie */
+    min-height: calc(100vh - 60px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -158,7 +203,7 @@ section {
 
 .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 188, 212, 0.2); /* Accent schaduw */
+    box-shadow: 0 8px 25px rgba(0, 188, 212, 0.2);
 }
 
 .project-card h3 {
@@ -166,7 +211,7 @@ section {
 }
 
 .project-card p {
-    flex-grow: 1; /* Zorgt ervoor dat alle kaarten even hoog zijn */
+    flex-grow: 1;
 }
 
 .tags {
@@ -196,7 +241,7 @@ footer {
 /* Responsiviteit */
 @media (max-width: 768px) {
     .nav-links {
-        display: none; /* Mobiele navigatie via JS (optioneel) */
+        display: none;
     }
 
     .hero-section h1 {
