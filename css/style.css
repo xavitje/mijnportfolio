@@ -1,5 +1,5 @@
 /* Globale Reset & Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
     /* Kleurenpalet (Donkere Modus Standaard) */
@@ -11,6 +11,17 @@
     --color-shadow: rgba(0, 0, 0, 0.4);
     --border-radius: 8px;
     --transition-speed: 0.3s;
+    
+    /* Flip Switch Variabelen */
+    --card-width: 110px;
+    --card-height: 120px;
+    --switch-bg: rgba(255, 255, 255, 0.1);
+    --switch-border-color: rgba(255, 255, 255, 0.2);
+    --text-color: #ffffff;
+    --inactive-text-color: rgba(255, 255, 255, 0.6);
+    --icon-shadow-color: rgba(0, 0, 0, 0.3);
+    --card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    --highlight-color: #64ffda; /* Dit is de accentkleur van de switch */
 }
 
 /* Basis Styling */
@@ -26,7 +37,7 @@ body {
     color: var(--color-text-light);
     line-height: 1.6;
     scroll-behavior: smooth;
-    padding-top: 60px;
+    padding-top: 140px; /* Ruimte voor de vaste, grotere navigatie */
 }
 
 a {
@@ -40,6 +51,7 @@ a:hover {
 }
 
 h1, h2, h3 {
+    font-family: 'Poppins', sans-serif;
     font-weight: 700;
     margin-bottom: 0.5em;
     color: var(--color-text-light);
@@ -47,6 +59,21 @@ h1, h2, h3 {
 
 p {
     margin-bottom: 1em;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    transition: background-color var(--transition-speed);
+}
+.button-link:hover {
+    background-color: #4dd0e1;
+    color: var(--color-background);
 }
 
 /* Container */
@@ -58,114 +85,189 @@ p {
 
 /* Navigatie (Vaste Bovenbalk) */
 .navbar {
-    background-color: var(--color-surface);
-    color: var(--color-text-light);
+    background-color: var(--color-background); /* Achtergrond van de hele balk */
     padding: 15px 0;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    box-shadow: 0 2px 10px var(--color-shadow);
+    box-shadow: 0 4px 15px var(--color-shadow);
 }
 
 .nav-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-height: 100px; /* Geeft wat meer ruimte */
 }
 
-.flip-switch .switch-button {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  cursor: pointer;
-  z-index: 2;
-  color: var(--inactive-text-color);
-  transition: all 0.3s ease;
-  -webkit-tap-highlight-color: transparent;
-  position: relative;
-  text-decoration: none;
+.logo {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-right: 30px;
 }
+
+
+/* --- FLIP SWITCH STIJLEN (Aangepast) --- */
+
+.flip-switch-container {
+    /* De navigatie wordt direct in de navbar geplaatst, dus deze stijlen zijn grotendeels overgenomen */
+    font-family: "Poppins", sans-serif;
+}
+
+.flip-switch {
+    display: flex;
+    position: relative;
+    width: calc(var(--card-width) * 2);
+    height: var(--card-height);
+    background: var(--switch-bg);
+    border-radius: 20px;
+    border: 1px solid var(--switch-border-color);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), inset 0 4px 8px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    perspective: 1000px;
+}
+
+.flip-switch input[type="radio"] {
+    display: none;
+}
+
+/* Gebruik <a> in plaats van label */
+.flip-switch .switch-button {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    z-index: 2;
+    color: var(--inactive-text-color);
+    transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+}
+
+.flip-switch .switch-button:hover {
+    color: var(--text-color);
+}
+
+.flip-switch .switch-button:hover svg {
+    transform: translateY(-3px);
+    filter: drop-shadow(0 4px 6px var(--icon-shadow-color)) brightness(1.2);
+}
+
+.flip-switch .switch-button svg {
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    filter: drop-shadow(0 2px 3px var(--icon-shadow-color));
+    width: 24px;
+    height: 24px;
+}
+
+.flip-switch .switch-button span {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* De Actieve Staat voor de link */
 .flip-switch .current-page {
-    color: var(--text-color) !important; 
+    color: var(--text-color) !important;
     text-shadow: 0 0 8px rgba(100, 255, 218, 0.5);
 }
 
-
-.flip-switch #switch-opt-1:checked ~ [for="switch-opt-1"]::after,
-.flip-switch #switch-opt-2:checked ~ [for="switch-opt-2"]::after {
+.flip-switch #switch-opt-1:checked ~ [for="switch-opt-2"],
+.flip-switch #switch-opt-2:checked ~ [for="switch-opt-1"] {
+    color: var(--inactive-text-color);
 }
 
+.flip-switch .switch-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--card-width);
+    height: var(--card-height);
+    z-index: 1;
+    transform-style: preserve-3d;
+}
 
+.flip-switch .card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.1);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.flip-switch .card-back {
+    transform: rotateY(180deg);
+}
+
+/* 1. START STATE BIJ LADEN */
+/* Start Flip op de juiste plek zonder animatie bij het laden van de pagina (Projecten) */
 .flip-switch #switch-opt-2:checked ~ .switch-card {
-    transform: translateX(100%) rotateY(180deg) scale(1); 
+    transform: translateX(100%) rotateY(180deg) scale(1);
     animation: none;
 }
-
+/* Start Flip op de juiste plek zonder animatie bij het laden van de pagina (Over Mij) */
 .flip-switch #switch-opt-1:checked ~ .switch-card {
     transform: translateX(0%) rotateY(0deg) scale(1);
     animation: none;
 }
 
-.flip-switch #switch-opt-2:focus ~ .switch-card,
-.flip-switch #switch-opt-2:checked:not(:focus) ~ .switch-card {
+/* 2. ANIMATIE BIJ KLIK (Activeer animatie alleen bij daadwerkelijke state change) */
+.flip-switch #switch-opt-2:checked ~ .switch-card {
      animation: flipRight 0.6s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
-
-.flip-switch #switch-opt-1:focus ~ .switch-card,
-.flip-switch #switch-opt-1:checked:not(:focus) ~ .switch-card {
+.flip-switch #switch-opt-1:checked ~ .switch-card {
      animation: flipLeft 0.6s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
 
-.logo {
-    font-size: 1.5em;
-    font-weight: 600;
+
+@keyframes flipRight {
+    0% { transform: translateX(0%) rotateY(0deg); }
+    50% { transform: translateX(50%) rotateY(90deg) scale(1.05); }
+    100% { transform: translateX(100%) rotateY(180deg) scale(1); }
 }
 
-.nav-links {
-    list-style: none;
-    display: flex;
+@keyframes flipLeft {
+    0% { transform: translateX(100%) rotateY(180deg); }
+    50% { transform: translateX(50%) rotateY(90deg) scale(1.05); }
+    100% { transform: translateX(0%) rotateY(0deg) scale(1); }
 }
 
-.nav-links li {
-    margin-left: 25px;
-}
-
-.nav-links a {
-    color: var(--color-text-light);
-    font-weight: 600;
-    padding-bottom: 5px;
-    position: relative;
-}
-
-.nav-links a::after {
-    content: '';
+/* De glow onder de actieve optie */
+.flip-switch .current-page::after {
+    content: "";
     position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: var(--color-primary);
-    transition: width var(--transition-speed);
+    bottom: -5px;
+    width: 30px;
+    height: 3px;
+    background: var(--highlight-color);
+    border-radius: 2px;
+    animation: glow 1.5s infinite alternate;
 }
 
-.nav-links a:hover::after,
-.nav-links a.active::after {
-    width: 100%;
+@keyframes glow {
+    from { box-shadow: 0 0 5px var(--highlight-color); }
+    to { box-shadow: 0 0 15px var(--highlight-color), 0 0 25px var(--highlight-color); }
 }
 
-/* Secties */
+/* --- SECTIE STIJLEN --- */
 section {
     padding: 80px 0;
 }
 
 /* Hero Sectie (Index.html) */
 .hero-section {
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - 140px); /* Volledige hoogte minus navigatie */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -179,7 +281,7 @@ section {
 
 .hero-section p {
     font-size: 1.2em;
-    max-width: 600px;
+    max-width: 800px;
     color: var(--color-text-dark);
 }
 
@@ -199,6 +301,7 @@ section {
     transition: transform var(--transition-speed), box-shadow var(--transition-speed);
     display: flex;
     flex-direction: column;
+    min-height: 200px; /* Zorgt voor een consistente hoogte */
 }
 
 .project-card:hover {
@@ -240,15 +343,22 @@ footer {
 
 /* Responsiviteit */
 @media (max-width: 768px) {
-    .nav-links {
-        display: none;
+    .nav-content {
+        flex-direction: column;
+        gap: 20px;
+        min-height: auto;
+    }
+    
+    body {
+        padding-top: 190px;
+    }
+
+    .flip-switch {
+        width: 100%;
+        max-width: 300px;
     }
 
     .hero-section h1 {
         font-size: 2.5em;
-    }
-
-    section {
-        padding: 40px 0;
     }
 }
