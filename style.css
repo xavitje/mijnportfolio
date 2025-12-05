@@ -3,25 +3,26 @@
 
 :root {
     /* Kleurenpalet (Donkere Modus Standaard) */
-    --color-background: #121212; /* Zeer Donker Grijs */
-    --color-surface: #1e1e1e; /* Donker Grijs (voor kaarten/secties) */
-    --color-primary: #00bcd4; /* Cyaan/Turkoois (Accentkleur) */
-    --color-text-light: #e0e0e0; /* Lichtgrijze Tekst */
-    --color-text-dark: #a0a0a0; /* Donkere Tekst (secundair) */
+    --color-header-bg: #1e1e1e; /* LICHTER grijs voor de header */
+    --color-background: #121212; /* Zeer Donker Grijs voor de pagina-achtergrond */
+    --color-surface: #1e1e1e; 
+    --color-primary: #00bcd4; 
+    --color-text-light: #e0e0e0;
+    --color-text-dark: #a0a0a0;
     --color-shadow: rgba(0, 0, 0, 0.4);
     --border-radius: 8px;
     --transition-speed: 0.3s;
     
-    /* Flip Switch Variabelen */
-    --card-width: 110px;
-    --card-height: 120px;
-    --switch-bg: rgba(255, 255, 255, 0.1);
+    /* Flip Switch Variabelen (VERKLEIND) */
+    --card-width: 90px;     /* Van 110px naar 90px */
+    --card-height: 100px;    /* Van 120px naar 100px */
+    --switch-bg: rgba(255, 255, 255, 0.07); /* Iets minder opvallend glas */
     --switch-border-color: rgba(255, 255, 255, 0.2);
     --text-color: #ffffff;
     --inactive-text-color: rgba(255, 255, 255, 0.6);
     --icon-shadow-color: rgba(0, 0, 0, 0.3);
     --card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
-    --highlight-color: #64ffda; /* Dit is de accentkleur van de switch */
+    --highlight-color: #64ffda;
 }
 
 /* Basis Styling */
@@ -37,7 +38,7 @@ body {
     color: var(--color-text-light);
     line-height: 1.6;
     scroll-behavior: smooth;
-    padding-top: 140px; /* Ruimte voor de vaste, grotere navigatie */
+    padding-top: 110px; /* AANGEPAST: Minder ruimte voor kleinere header */
 }
 
 a {
@@ -85,8 +86,8 @@ p {
 
 /* Navigatie (Vaste Bovenbalk) */
 .navbar {
-    background-color: var(--color-background); /* Achtergrond van de hele balk */
-    padding: 15px 0;
+    background-color: var(--color-header-bg); /* AANGEPAST: Lichtere kleur */
+    padding: 10px 0; /* AANGEPAST: Minder padding */
     position: fixed;
     top: 0;
     left: 0;
@@ -96,10 +97,10 @@ p {
 }
 
 .nav-content {
+    min-height: 80px; /* AANGEPAST: Kleinere minimale hoogte */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-height: 100px; /* Geeft wat meer ruimte */
 }
 
 .logo {
@@ -113,7 +114,6 @@ p {
 /* --- FLIP SWITCH STIJLEN (Aangepast) --- */
 
 .flip-switch-container {
-    /* De navigatie wordt direct in de navbar geplaatst, dus deze stijlen zijn grotendeels overgenomen */
     font-family: "Poppins", sans-serif;
 }
 
@@ -161,14 +161,14 @@ p {
 }
 
 .flip-switch .switch-button svg {
+    width: 20px; /* AANGEPAST */
+    height: 20px; /* AANGEPAST */
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     filter: drop-shadow(0 2px 3px var(--icon-shadow-color));
-    width: 24px;
-    height: 24px;
 }
 
 .flip-switch .switch-button span {
-    font-size: 14px;
+    font-size: 13px; /* AANGEPAST */
     font-weight: 500;
     letter-spacing: 0.5px;
 }
@@ -211,18 +211,16 @@ p {
 }
 
 /* 1. START STATE BIJ LADEN */
-/* Start Flip op de juiste plek zonder animatie bij het laden van de pagina (Projecten) */
 .flip-switch #switch-opt-2:checked ~ .switch-card {
     transform: translateX(100%) rotateY(180deg) scale(1);
     animation: none;
 }
-/* Start Flip op de juiste plek zonder animatie bij het laden van de pagina (Over Mij) */
 .flip-switch #switch-opt-1:checked ~ .switch-card {
     transform: translateX(0%) rotateY(0deg) scale(1);
     animation: none;
 }
 
-/* 2. ANIMATIE BIJ KLIK (Activeer animatie alleen bij daadwerkelijke state change) */
+/* 2. ANIMATIE BIJ KLIK */
 .flip-switch #switch-opt-2:checked ~ .switch-card {
      animation: flipRight 0.6s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
@@ -267,7 +265,7 @@ section {
 
 /* Hero Sectie (Index.html) */
 .hero-section {
-    min-height: calc(100vh - 140px); /* Volledige hoogte minus navigatie */
+    min-height: calc(100vh - 110px); /* AANGEPAST */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -301,7 +299,7 @@ section {
     transition: transform var(--transition-speed), box-shadow var(--transition-speed);
     display: flex;
     flex-direction: column;
-    min-height: 200px; /* Zorgt voor een consistente hoogte */
+    min-height: 200px;
 }
 
 .project-card:hover {
@@ -350,7 +348,8 @@ footer {
     }
     
     body {
-        padding-top: 190px;
+        /* AANGEPAST */
+        padding-top: 170px; 
     }
 
     .flip-switch {
