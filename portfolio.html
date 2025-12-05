@@ -4,7 +4,374 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mijn Portfolio | Projecten</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+        :root {
+            --color-header-bg: #1e1e1e;
+            --color-background: #121212;
+            --color-surface: #1e1e1e;
+            --color-primary: #00bcd4;
+            --color-text-light: #e0e0e0;
+            --color-text-dark: #a0a0a0;
+            --color-shadow: rgba(0, 0, 0, 0.4);
+            --border-radius: 8px;
+            --transition-speed: 0.3s;
+            --card-width: 90px;
+            --card-height: 100px;
+            --switch-bg: rgba(255, 255, 255, 0.07);
+            --switch-border-color: rgba(255, 255, 255, 0.2);
+            --text-color: #ffffff;
+            --inactive-text-color: rgba(255, 255, 255, 0.6);
+            --icon-shadow-color: rgba(0, 0, 0, 0.3);
+            --card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            --highlight-color: #64ffda;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text-light);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            padding-top: 110px;
+        }
+
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: color var(--transition-speed);
+        }
+
+        a:hover {
+            color: #4dd0e1;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            margin-bottom: 0.5em;
+            color: var(--color-text-light);
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .navbar {
+            background-color: var(--color-header-bg);
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 15px var(--color-shadow);
+        }
+
+        .nav-content {
+            min-height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-right: 30px;
+        }
+
+        .flip-switch-container {
+            font-family: "Poppins", sans-serif;
+        }
+
+        .flip-switch {
+            display: flex;
+            position: relative;
+            width: calc(var(--card-width) * 2);
+            height: var(--card-height);
+            background: var(--switch-bg);
+            border-radius: 20px;
+            border: 1px solid var(--switch-border-color);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), inset 0 4px 8px rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            perspective: 1000px;
+        }
+
+        .flip-switch input[type="radio"] {
+            display: none;
+        }
+
+        .flip-switch .switch-button {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            z-index: 2;
+            color: var(--inactive-text-color);
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .flip-switch .switch-button:hover {
+            color: var(--text-color);
+        }
+
+        .flip-switch .current-page {
+            color: var(--text-color) !important;
+            text-shadow: 0 0 8px rgba(100, 255, 218, 0.5);
+        }
+
+        .flip-switch .switch-card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: var(--card-width);
+            height: var(--card-height);
+            z-index: 1;
+            transform-style: preserve-3d;
+            transform: translateX(100%) rotateY(180deg) scale(1);
+        }
+
+        .flip-switch .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.1);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .flip-switch .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .flip-switch .current-page::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            width: 30px;
+            height: 3px;
+            background: var(--highlight-color);
+            border-radius: 2px;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 5px var(--highlight-color); }
+            to { box-shadow: 0 0 15px var(--highlight-color), 0 0 25px var(--highlight-color); }
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background-color: var(--color-surface);
+            border-radius: var(--border-radius);
+            padding: 0;
+            box-shadow: 0 4px 15px var(--color-shadow);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 188, 212, 0.2);
+        }
+
+        .project-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card h3 {
+            color: var(--color-primary);
+            margin-bottom: 15px;
+        }
+
+        .project-card p {
+            flex-grow: 1;
+            margin-bottom: 15px;
+        }
+
+        .slideshow-container {
+            position: relative;
+            background-color: #0a0a0a;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .slideshow-image {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            display: none;
+            background-color: #0a0a0a;
+        }
+
+        .slideshow-image.active {
+            display: block;
+        }
+
+        .slideshow-controls {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 8px 12px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .slideshow-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slideshow-dot.active {
+            background: var(--color-primary);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .slideshow-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .slideshow-arrow:hover {
+            background: rgba(0, 188, 212, 0.8);
+        }
+
+        .slideshow-arrow.prev {
+            left: 10px;
+        }
+
+        .slideshow-arrow.next {
+            right: 10px;
+        }
+
+        .single-image {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            background-color: #0a0a0a;
+        }
+
+        .tags {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background-color: #333;
+            color: var(--color-text-light);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--color-primary);
+            font-weight: 600;
+            transition: color var(--transition-speed);
+        }
+
+        .project-link:hover {
+            color: #4dd0e1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid #333;
+            color: var(--color-text-dark);
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 20px;
+                min-height: auto;
+            }
+            
+            body {
+                padding-top: 170px;
+            }
+
+            .flip-switch {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -17,8 +384,8 @@
                     <input type="radio" id="switch-opt-1" name="flip-switch" /> 
                     <input type="radio" id="switch-opt-2" name="flip-switch" checked="" /> 
                 
-                    <a href="index.html" for="switch-opt-1" class="switch-button">Home</a>
-                    <a href="portfolio.html" for="switch-opt-2" class="switch-button current-page">Portfolio</a>
+                    <a href="index.html" class="switch-button">Home</a>
+                    <a href="portfolio.html" class="switch-button current-page">Portfolio</a>
                 
                     <div class="switch-card">
                         <div class="card-face card-front"></div>
@@ -32,49 +399,176 @@
     <main class="container">
         <section id="projects">
             <h1>Mijn Projecten Overzicht</h1>
-            <p>Een selectie van de meest recente en trotse projecten die ik heb afgerond. Klik op een kaart voor meer details.</p>
+            <p>Een uitgebreide selectie van projecten die mijn ontwikkeling als softwareontwikkelaar laten zien. Van webapplicaties tot games en mobile apps - elk project toont verschillende vaardigheden en technieken.</p>
 
             <div class="projects-grid">
 
                 <article class="project-card">
-                    <h3>E-commerce Platform</h3>
-                    <p>Een full-stack applicatie gebouwd met React en Node.js, inclusief een werkend betaalsysteem, gebruikersauthenticatie en een beheerderspaneel.</p>
-                    <div class="tags">
-                        <span class="tag">React</span>
-                        <span class="tag">Node.js</span>
-                        <span class="tag">MongoDB</span>
+                    <img src="/Schermafbeelding 2025-12-05 142750.png" alt="Interactieve Kaart" class="single-image">
+                    <div class="project-content">
+                        <h3>Interactieve Kaart voor Travel Counsellors</h3>
+                        <p>Een dynamische, interactieve wereldkaart ontwikkeld voor Travel Counsellors. De applicatie visualiseert reisbestemmingen en informatie op een gebruiksvriendelijke manier. Nu voorzien van testdata vanwege privacyregels.</p>
+                        <div class="tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Mapping API</span>
+                            <span class="tag">Interactive UI</span>
+                        </div>
+                        <a href="https://xavitje.github.io/SchoolInteractieveKaart/" target="_blank" class="project-link">Live Demo →</a>
                     </div>
-                    <a href="#" style="margin-top: 15px;">Bekijk Code &rarr;</a>
                 </article>
 
                 <article class="project-card">
-                    <h3>Statische Blog Generator</h3>
-                    <p>Een snelle, statische websitegenerator geschreven in Python die Markdown-bestanden omzet in HTML voor optimale SEO en prestaties.</p>
-                    <div class="tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Static Site</span>
+                    <div class="slideshow-container">
+                        <button class="slideshow-arrow prev" onclick="changeSlide(this, -1)">‹</button>
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=DrisisShop+Home" class="slideshow-image active" alt="DrisisShop Homepage">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=AI+Chatbot" class="slideshow-image" alt="Interactieve Chatbot">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Windows+Game" class="slideshow-image" alt="Windows Game">
+                        <button class="slideshow-arrow next" onclick="changeSlide(this, 1)">›</button>
+                        <div class="slideshow-controls">
+                            <span class="slideshow-dot active" onclick="goToSlide(this, 0)"></span>
+                            <span class="slideshow-dot" onclick="goToSlide(this, 1)"></span>
+                            <span class="slideshow-dot" onclick="goToSlide(this, 2)"></span>
+                        </div>
                     </div>
-                    <a href="#" style="margin-top: 15px;">Live Demo &rarr;</a>
+                    <div class="project-content">
+                        <h3>DrisisShop - Persoonlijke E-commerce Website</h3>
+                        <p>Een volledig functionele webshop met een interactieve AI-chatbot die vragen over de website beantwoordt. Bevat eigen gemaakte producten zoals een Windows game en een AI-gegenereerd kinderboek. De chatbot biedt realtime support aan bezoekers.</p>
+                        <div class="tags">
+                            <span class="tag">E-commerce</span>
+                            <span class="tag">AI Chatbot</span>
+                            <span class="tag">Full-Stack</span>
+                        </div>
+                        <a href="https://drissishop.pages.dev/" target="_blank" class="project-link">Bezoek Website →</a>
+                    </div>
                 </article>
-                
+
                 <article class="project-card">
-                    <h3>Mobiele Taken-App</h3>
-                    <p>Een mobiele takenlijst-applicatie ontwikkeld met Vue.js en Capacitor voor een native mobiele ervaring op iOS en Android.</p>
-                    <div class="tags">
-                        <span class="tag">Vue.js</span>
-                        <span class="tag">PWA</span>
+                    <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Rad+van+Eten" alt="Rad van Eten" class="single-image">
+                    <div class="project-content">
+                        <h3>Rad van Eten</h3>
+                        <p>Een interactieve web applicatie met een draaibaar rad om te beslissen wat je voor lunch wilt eten. Gebruikers kunnen eenvoudig eigen items toevoegen en verwijderen. Perfect voor besluitloze momenten!</p>
+                        <div class="tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Canvas API</span>
+                            <span class="tag">Interactive</span>
+                        </div>
                     </div>
-                    <a href="#" style="margin-top: 15px;">Lees Meer &rarr;</a>
                 </article>
-                
+
                 <article class="project-card">
-                    <h3>API Gateway Service</h3>
-                    <p>Een microservice architectuur op basis van AWS Lambda en API Gateway om een snelle en schaalbare backend te creëren.</p>
-                    <div class="tags">
-                        <span class="tag">AWS Lambda</span>
-                        <span class="tag">Serverless</span>
+                    <div class="slideshow-container">
+                        <button class="slideshow-arrow prev" onclick="changeSlide(this, -1)">‹</button>
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Budget+Dashboard" class="slideshow-image active" alt="Budget Dashboard">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Kosten+Overzicht" class="slideshow-image" alt="Maandelijkse Kosten">
+                        <button class="slideshow-arrow next" onclick="changeSlide(this, 1)">›</button>
+                        <div class="slideshow-controls">
+                            <span class="slideshow-dot active" onclick="goToSlide(this, 0)"></span>
+                            <span class="slideshow-dot" onclick="goToSlide(this, 1)"></span>
+                        </div>
                     </div>
-                    <a href="#" style="margin-top: 15px;">GitHub Repo &rarr;</a>
+                    <div class="project-content">
+                        <h3>Budget & Salaris Tracker</h3>
+                        <p>Een Azure-gehoste webapplicatie voor het beheren van maandelijkse kosten en salaris. Gebruikers kunnen inloggen met hun Google-account en hun financiën per maand inzien en verdelen. Bevat overzichtelijke grafieken en statistieken.</p>
+                        <div class="tags">
+                            <span class="tag">Azure</span>
+                            <span class="tag">Google OAuth</span>
+                            <span class="tag">Data Visualization</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Werkuren+Logger" alt="Werkuren Logger" class="single-image">
+                    <div class="project-content">
+                        <h3>Werkuren Logger</h3>
+                        <p>Een complete tijdregistratie applicatie met persoonlijke accounts. Gebruikers kunnen registreren met gebruikersnaam en wachtwoord, en hun werkuren bijhouden per maand. Data wordt veilig opgeslagen in een MongoDB database.</p>
+                        <div class="tags">
+                            <span class="tag">MongoDB</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">Authentication</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=3D+Racing+Game" alt="Python Racing Game" class="single-image">
+                    <div class="project-content">
+                        <h3>Python 3D Multiplayer Racing Game</h3>
+                        <p>Een volledig functionele 3D racegame gebouwd met de Ursina engine en WebSockets voor multiplayer functionaliteit. Bevat een pit lane om banden te wisselen tussen soft, medium en hard compounds. Ondersteunt 1-6 spelers, waarbij je altijd tegen minimaal één bot racet.</p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Ursina</span>
+                            <span class="tag">WebSockets</span>
+                            <span class="tag">3D Graphics</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="slideshow-container">
+                        <button class="slideshow-arrow prev" onclick="changeSlide(this, -1)">‹</button>
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=TimeTell+Main" class="slideshow-image active" alt="TimeTell Hoofdscherm">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=TimeTell+Timer" class="slideshow-image" alt="TimeTell Timer">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=TimeTell+Stats" class="slideshow-image" alt="TimeTell Statistieken">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=TimeTell+Settings" class="slideshow-image" alt="TimeTell Instellingen">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=TimeTell+Overview" class="slideshow-image" alt="TimeTell Overzicht">
+                        <button class="slideshow-arrow next" onclick="changeSlide(this, 1)">›</button>
+                        <div class="slideshow-controls">
+                            <span class="slideshow-dot active" onclick="goToSlide(this, 0)"></span>
+                            <span class="slideshow-dot" onclick="goToSlide(this, 1)"></span>
+                            <span class="slideshow-dot" onclick="goToSlide(this, 2)"></span>
+                            <span class="slideshow-dot" onclick="goToSlide(this, 3)"></span>
+                            <span class="slideshow-dot" onclick="goToSlide(this, 4)"></span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>TimeTell - Hackathon Project HR 2025</h3>
+                        <p>Winnend project van de Hogeschool Rotterdam hackathon voor eerstejaars studenten. Een productiviteitsapp gebouwd met Python en PyQt6 voor tijdmanagement en taakplanning. Bevat timers, statistieken en een overzichtelijk dashboard.</p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">PyQt6</span>
+                            <span class="tag">Hackathon Winner</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="slideshow-container">
+                        <button class="slideshow-arrow prev" onclick="changeSlide(this, -1)">‹</button>
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Monopoly+Board" class="slideshow-image active" alt="Monopoly Speelbord">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Monopoly+Gameplay" class="slideshow-image" alt="Monopoly Gameplay">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=Monopoly+Properties" class="slideshow-image" alt="Monopoly Eigenschappen">
+                        <button class="slideshow-arrow next" onclick="changeSlide(this, 1)">›</button>
+                        <div class="slideshow-controls">
+                            <span class="slideshow-dot active" onclick="goToSlide(this, 0)"></span>
+                            <span class="slideshow-dot" onclick="goToSlide(this, 1)"></span>
+                            <span class="slideshow-dot" onclick="goToSlide(this, 2)"></span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Python Monopoly Game</h3>
+                        <p>Een volledig werkende digitale versie van Monopoly gebouwd met Python en Pygame. Ondersteunt tot 6 spelers met complete gameplay: dobbelsteengeluiden, 'ka-ching' geluiden bij aankopen, gevangenis mechaniek, kaarten kopen, start passeren, huur betalen en winnaar bepaling.</p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Pygame</span>
+                            <span class="tag">Game Development</span>
+                            <span class="tag">Audio</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <img src="https://via.placeholder.com/400x250/1a1a1a/00bcd4?text=AR+Zombie+Shooter" alt="AR Zombie Game" class="single-image">
+                    <div class="project-content">
+                        <h3>iOS AR Zombie Shooter</h3>
+                        <p>Een augmented reality game voor iOS die de echte wereld combineert met gameplay. Zombies komen op je af in AR en moeten worden neergeschoten. Bevat een wapensysteem met upgrades en nieuwe wapens die gekocht kunnen worden. <strong>Momenteel in ontwikkeling.</strong></p>
+                        <div class="tags">
+                            <span class="tag">iOS</span>
+                            <span class="tag">ARKit</span>
+                            <span class="tag">Swift</span>
+                            <span class="tag">In Development</span>
+                        </div>
+                    </div>
                 </article>
 
             </div>
@@ -82,9 +576,53 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 [Jouw Naam]. Alle rechten voorbehouden.</p>
+        <p>&copy; 2025 Rafi el Idrissi. Alle rechten voorbehouden.</p>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script>
+        function changeSlide(button, direction) {
+            const container = button.closest('.slideshow-container');
+            const images = container.querySelectorAll('.slideshow-image');
+            const dots = container.querySelectorAll('.slideshow-dot');
+            
+            let currentIndex = 0;
+            images.forEach((img, index) => {
+                if (img.classList.contains('active')) {
+                    currentIndex = index;
+                }
+            });
+            
+            images[currentIndex].classList.remove('active');
+            dots[currentIndex].classList.remove('active');
+            
+            let newIndex = currentIndex + direction;
+            if (newIndex >= images.length) newIndex = 0;
+            if (newIndex < 0) newIndex = images.length - 1;
+            
+            images[newIndex].classList.add('active');
+            dots[newIndex].classList.add('active');
+        }
+        
+        function goToSlide(dot, index) {
+            const container = dot.closest('.slideshow-container');
+            const images = container.querySelectorAll('.slideshow-image');
+            const dots = container.querySelectorAll('.slideshow-dot');
+            
+            images.forEach(img => img.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            
+            images[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 12px var(--color-shadow)';
+            } else {
+                navbar.style.boxShadow = '0 2px 10px var(--color-shadow)';
+            }
+        });
+    </script>
 </body>
 </html>
